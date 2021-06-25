@@ -8,5 +8,7 @@ import java.util.Optional;
 public interface IUserService {
     Optional<User> findByEmail(String email);
 
+    boolean matchPassword(String rawPassword, String encodedPassword);
+
     User create(String email, String password, String name) throws BaseException;
 }

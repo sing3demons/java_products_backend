@@ -28,6 +28,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public boolean matchPassword(String rawPassword, String encodedPassword) {
+        return passwordEncode.matches(rawPassword,encodedPassword);
+    }
+
+    @Override
     public User create(String email, String password, String name) throws BaseException {
 
         // validate
