@@ -4,7 +4,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: 'create-drop'
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/
     username: postgres
@@ -14,3 +14,9 @@ spring:
       enabled: true
       max-file-size: 2MB
       max-request-size: 2MB
+
+---
+app:
+  token:
+    secret: 49614285-181f-436d-b77c-724c200a31ab
+    issuer: BankenService

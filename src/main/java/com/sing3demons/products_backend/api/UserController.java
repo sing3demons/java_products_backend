@@ -6,12 +6,14 @@ import com.sing3demons.products_backend.exception.BaseException;
 import com.sing3demons.products_backend.mapper.UserMapper;
 import com.sing3demons.products_backend.model.MLoginRequest;
 import com.sing3demons.products_backend.model.MRegisterRequest;
+import com.sing3demons.products_backend.model.MRegisterResponse;
+import com.sing3demons.products_backend.model.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,16 +28,28 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<Object> getProfile() throws BaseException {
+        UserResponse response = business.getProfile();
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody MRegisterRequest request) throws BaseException {
-        User response = business.register(request);
-        return new ResponseEntity<>(userMapper.toRegisterResponse(response), HttpStatus.CREATED);
+        MRegisterResponse response = business.register(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody MLoginRequest request) throws BaseException {
         String response = business.login(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken() throws BaseException {
+        String response = business.refreshToken();
         return ResponseEntity.ok(response);
     }
 }

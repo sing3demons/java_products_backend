@@ -28,6 +28,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public boolean matchPassword(String rawPassword, String encodedPassword) {
         return passwordEncode.matches(rawPassword,encodedPassword);
     }
@@ -58,5 +63,10 @@ public class UserService implements IUserService {
         entity.setName(name);
 
         return userRepository.save(entity);
+    }
+
+    @Override
+    public Optional<User> getProfile(String id) {
+        return userRepository.findById(id);
     }
 }
