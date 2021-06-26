@@ -10,6 +10,7 @@ import com.sing3demons.products_backend.model.MRegisterResponse;
 import com.sing3demons.products_backend.model.UserResponse;
 import com.sing3demons.products_backend.service.IUserService;
 import com.sing3demons.products_backend.service.TokenService;
+import com.sing3demons.products_backend.util.SecurityUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,11 +31,12 @@ public class UserBusiness {
     }
 
     public UserResponse getProfile() throws BaseException{
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
+        Optional<String> optional = SecurityUtil.getCurrentUserId();
+        if (optional.isEmpty()) {
+            throw UserException.unauthorized();
+        }
+        String userId = optional.get();
 
-
-        String userId = authentication.getPrincipal().toString();
         Optional<User> opt = userService.getProfile(userId);
         if (opt.isEmpty()) {
             throw UserException.notFound();
@@ -70,13 +72,11 @@ public class UserBusiness {
     }
 
     public String refreshToken() throws BaseException {
-//        Optional<String> opt = SecurityUtil.getCurrentUserId();
-//
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-
-
-        String userId = authentication.getPrincipal().toString();
+        Optional<String> optional = SecurityUtil.getCurrentUserId();
+        if (optional.isEmpty()) {
+            throw UserException.unauthorized();
+        }
+        String userId = optional.get();
         Optional<User> opt = userService.findById(userId);
         if (opt.isEmpty()) {
             throw UserException.notFound();

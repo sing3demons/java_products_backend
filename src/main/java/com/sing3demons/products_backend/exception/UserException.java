@@ -43,4 +43,8 @@ public class UserException extends BaseException {
     public static UserException loginFailPasswordIncorrect() {
         return new UserException("login.fail");
     }
+
+    public static BaseException unauthorized() {
+        return new UserException("unauthorized");
+    }
 }
