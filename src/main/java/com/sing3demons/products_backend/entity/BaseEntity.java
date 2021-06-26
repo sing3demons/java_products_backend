@@ -3,12 +3,10 @@ package com.sing3demons.products_backend.entity;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
+@MappedSuperclass
 public abstract class BaseEntity {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")

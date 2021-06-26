@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Getter
@@ -28,4 +29,12 @@ public class User  {
 
     @Column(nullable = false, length = 120)
     private String name;
+
+    private String civilId;
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Social social;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Address> addresses;
 }
