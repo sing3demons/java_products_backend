@@ -1,4 +1,4 @@
-package com.sing3demons.products_backend.api;
+package com.sing3demons.products_backend.controller;
 
 import com.sing3demons.products_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

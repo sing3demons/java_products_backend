@@ -1,7 +1,6 @@
-package com.sing3demons.products_backend.api;
+package com.sing3demons.products_backend.controller;
 
 import com.sing3demons.products_backend.business.UserBusiness;
-import com.sing3demons.products_backend.entity.User;
 import com.sing3demons.products_backend.exception.BaseException;
 import com.sing3demons.products_backend.mapper.UserMapper;
 import com.sing3demons.products_backend.model.MLoginRequest;
@@ -10,9 +9,6 @@ import com.sing3demons.products_backend.model.MRegisterResponse;
 import com.sing3demons.products_backend.model.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
